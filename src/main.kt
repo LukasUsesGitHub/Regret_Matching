@@ -1,6 +1,14 @@
 var selection = "Unbekannt"
 var selectionEnemy= "Unbekannt"
 var resultList = mutableListOf<String>()       //Verfahren um eine Liste anzulegen (listOf = Eine fertige Liste ; mutableListOf = Eine veränderbare Liste anlegen , und hier muss ein Datentyp rein)
+var scissorsBestChoice:Int=0
+var stoneBestChoice:Int=0
+var paperBestChoice:Int=0
+
+var scissorSusChoice:Int=0
+var stoneSusChoice:Int=0
+var paperSusChoice:Int=0
+
 
 fun main(){
     newGame()
@@ -9,6 +17,9 @@ fun main(){
 
 fun newRound(){
     computerSelection()
+    if (scissorsBestChoice>0 || stoneBestChoice>0 || paperBestChoice>0){
+        calcBestChoice()
+    }
     readUserInput()
     if(selection!= "Exit") {
         evaluateGame()
@@ -24,6 +35,8 @@ fun printResults(){
         var nexIndex= index+1
         println("($nexIndex) $value")
     }
+    println("+Schere: $scissorsBestChoice \n+Stein: $stoneBestChoice \n+Paper: $paperBestChoice\n") //Gewinne
+    println("-Schere: $scissorSusChoice \n-Stein: $stoneSusChoice \n-Paper: $paperSusChoice\n")      //Veloren
 }
 
 fun computerSelection(){
@@ -38,7 +51,7 @@ fun computerSelection(){
 }
 
 fun newGame(){
-    println("Herzlich wilkommen zu diesem Spiel.")
+    println("Schere-Stein-Papier-Game")
 }
 
 fun readUserInput(){
@@ -72,9 +85,11 @@ fun evaluateGame(){
         if (selection == "Schere"){                     //Aufbau von If und Else Bedingungen bleiben auch gleich wie in Java
             if (selectionEnemy == "Papier"){
                 println("Gewonnen!!!")
+                scissorsBestChoice++
                 resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Gewonnen!!!")
             }else{
                 println("Verloren!!")
+                scissorSusChoice++
                 resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Verloren!!!")
             }
         }
@@ -82,9 +97,11 @@ fun evaluateGame(){
         if (selection == "Papier"){
             if (selectionEnemy == "Schere"){
                 println("Verloren!!!")
+                paperSusChoice++
                 resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Verloren!!!")
             }else{
                 println("Gewonnen")
+                paperBestChoice++
                 resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Gewonnen!!!")
             }
         }
@@ -92,12 +109,27 @@ fun evaluateGame(){
         if (selection == "Stein"){
             if (selectionEnemy == "Schere"){
                 println("Gewonnen!!!")
+                stoneBestChoice++
                 resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Gewonnen!!!")
             }else{
                 println("Verloren")
+                stoneSusChoice++
                 resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Verloren!!!")
             }
         }
     }
     newRound()
+}
+
+fun calcBestChoice(){
+    val scissorsValue = scissorsBestChoice-scissorSusChoice
+    val stoneValue = stoneBestChoice-stoneSusChoice
+    val paperValue = paperBestChoice-paperSusChoice
+    if(scissorsValue>stoneValue && scissorsValue>paperValue){
+        println("Du solltest Schere nehmen!!")
+    }else if (stoneValue>scissorsValue && stoneValue>paperValue){
+        println("Du solltest Stein nehmen!!")
+    }else if (paperValue>stoneValue && paperValue>scissorsValue){
+        println("Du solltest papier nehmen!!")
+    }
 }
