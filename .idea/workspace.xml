@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bddf3ec7-a48c-440f-803e-101b149a98eb" name="Changes" comment="Initial start">
+    <list default="true" id="bddf3ec7-a48c-440f-803e-101b149a98eb" name="Changes" comment="Erster Versuch der einer eigenen Implementierung des Regret matchings">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.kt" afterDir="false" />
     </list>
@@ -23,7 +23,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="Lukas-Branch" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -49,20 +49,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Kotlin.MainKt.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Lukas-Branch",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Kotlin.MainKt.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Lukas-Branch&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -83,7 +84,14 @@
       <workItem from="1714040267621" duration="43000" />
       <workItem from="1714040485467" duration="140000" />
       <workItem from="1714459336777" duration="19000" />
-      <workItem from="1714637400151" duration="4532000" />
+      <workItem from="1714637400151" duration="4971000" />
+      <workItem from="1714643050014" duration="81000" />
+      <workItem from="1714655995096" duration="96000" />
+      <workItem from="1714717959496" duration="1317000" />
+      <workItem from="1714904576627" duration="142000" />
+      <workItem from="1714905699967" duration="1165000" />
+      <workItem from="1714978739153" duration="288000" />
+      <workItem from="1714984852222" duration="1019000" />
     </task>
     <task id="LOCAL-00001" summary="Initial start">
       <option name="closed" value="true" />
@@ -93,7 +101,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714039403889</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Erster Versuch der einer eigenen Implementierung des Regret matchings">
+      <option name="closed" value="true" />
+      <created>1714642767471</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1714642767471</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -110,7 +126,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="Lukas-Branch" />
                       </list>
                     </value>
                   </entry>
@@ -124,6 +140,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial start" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial start" />
+    <MESSAGE value="Erster Versuch der einer eigenen Implementierung des Regret matchings" />
+    <option name="LAST_COMMIT_MESSAGE" value="Erster Versuch der einer eigenen Implementierung des Regret matchings" />
   </component>
 </project>

@@ -1,13 +1,15 @@
 var selection = "Unbekannt"
 var selectionEnemy= "Unbekannt"
 var resultList = mutableListOf<String>()       //Verfahren um eine Liste anzulegen (listOf = Eine fertige Liste ; mutableListOf = Eine veränderbare Liste anlegen , und hier muss ein Datentyp rein)
-var scissorsBestChoice:Int=0
-var stoneBestChoice:Int=0
-var paperBestChoice:Int=0
+var scissorsBestChoice:Double=0.0                //Zahl der Runden die gewonnen wurden
+var stoneBestChoice:Double=0.0
+var paperBestChoice:Double=0.0
 
-var scissorSusChoice:Int=0
-var stoneSusChoice:Int=0
-var paperSusChoice:Int=0
+var scissorBadChoice:Double=0.0                  //Zahl der verlorenden Runden
+var stoneBadChoice:Double=0.0
+var paperBadChoice:Double=0.0
+
+var countRounds:Double=0.0
 
 
 fun main(){
@@ -18,10 +20,12 @@ fun main(){
 fun newRound(){
     computerSelection()
     if (scissorsBestChoice>0 || stoneBestChoice>0 || paperBestChoice>0){
-        calcBestChoice()
+        val bestChoiceFeedback = calcBestChoice()
+        println(bestChoiceFeedback)
     }
     readUserInput()
     if(selection!= "Exit") {
+        countRounds++
         evaluateGame()
     }else{
         println("Spiel wird beendet")
@@ -36,7 +40,7 @@ fun printResults(){
         println("($nexIndex) $value")
     }
     println("+Schere: $scissorsBestChoice \n+Stein: $stoneBestChoice \n+Paper: $paperBestChoice\n") //Gewinne
-    println("-Schere: $scissorSusChoice \n-Stein: $stoneSusChoice \n-Paper: $paperSusChoice\n")      //Veloren
+    println("-Schere: $scissorBadChoice \n-Stein: $stoneBadChoice \n-Paper: $paperBadChoice\n")      //Veloren
 }
 
 fun computerSelection(){
@@ -61,7 +65,6 @@ fun readUserInput(){
     println("(3)Papier")
     println("(9)Spiel beenden")
     var userSelect= readln()                            //readln().toInt() eine Variable zu einen bestimmten datentyp einlesen
-
     selection = when(userSelect){                       //"Case" Ähnlicher Vorgang in Kotlin
         "1" -> "Schere"
         "2" -> "Stein"
@@ -89,7 +92,7 @@ fun evaluateGame(){
                 resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Gewonnen!!!")
             }else{
                 println("Verloren!!")
-                scissorSusChoice++
+                scissorBadChoice++
                 resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Verloren!!!")
             }
         }
@@ -97,7 +100,7 @@ fun evaluateGame(){
         if (selection == "Papier"){
             if (selectionEnemy == "Schere"){
                 println("Verloren!!!")
-                paperSusChoice++
+                paperBadChoice++
                 resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Verloren!!!")
             }else{
                 println("Gewonnen")
@@ -113,7 +116,7 @@ fun evaluateGame(){
                 resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Gewonnen!!!")
             }else{
                 println("Verloren")
-                stoneSusChoice++
+                stoneBadChoice++
                 resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Verloren!!!")
             }
         }
@@ -121,15 +124,15 @@ fun evaluateGame(){
     newRound()
 }
 
-fun calcBestChoice(){
-    val scissorsValue = scissorsBestChoice-scissorSusChoice
-    val stoneValue = stoneBestChoice-stoneSusChoice
-    val paperValue = paperBestChoice-paperSusChoice
-    if(scissorsValue>stoneValue && scissorsValue>paperValue){
-        println("Du solltest Schere nehmen!!")
-    }else if (stoneValue>scissorsValue && stoneValue>paperValue){
-        println("Du solltest Stein nehmen!!")
-    }else if (paperValue>stoneValue && paperValue>scissorsValue){
-        println("Du solltest papier nehmen!!")
+fun calcBestChoice(): String {
+    val scissorsValue:Double = scissorsBestChoice / countRounds
+    val stoneValue:Double = stoneBestChoice / countRounds
+    val paperValue:Double = paperBestChoice / countRounds
+    return when {
+        scissorsValue > stoneValue && scissorsValue > paperValue -> "Du solltest Schere nehmen!!"
+        stoneValue > scissorsValue && stoneValue > paperValue -> "Du solltest Stein nehmen!!"
+        paperValue > stoneValue && paperValue > scissorsValue -> "Du solltest Papier nehmen!!"
+        else -> "Keine klare Empfehlung."
     }
 }
+
