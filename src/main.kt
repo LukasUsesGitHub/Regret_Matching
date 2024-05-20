@@ -1,16 +1,10 @@
 var selection = "Unbekannt"
 var selectionEnemy= "Unbekannt"
+var regretList = mutableListOf<String>()        //Dies wird verwendet um die Regret Vorschläge zu speichern
 var resultList = mutableListOf<String>()       //Verfahren um eine Liste anzulegen (listOf = Eine fertige Liste ; mutableListOf = Eine veränderbare Liste anlegen , und hier muss ein Datentyp rein)
-var scissorsBestChoice:Double=0.0                //Zahl der Runden die gewonnen wurden
-var stoneBestChoice:Double=0.0
-var paperBestChoice:Double=0.0
-
-var scissorBadChoice:Double=0.0                  //Zahl der verlorenden Runden
-var stoneBadChoice:Double=0.0
-var paperBadChoice:Double=0.0
-
-var countRounds:Double=0.0
-
+var regretScissors:Int=0
+var regretStone:Int=0
+var regretPaper:Int=0
 
 fun main(){
     newGame()
@@ -19,13 +13,13 @@ fun main(){
 
 fun newRound(){
     computerSelection()
-    if (scissorsBestChoice>0 || stoneBestChoice>0 || paperBestChoice>0){
-        val bestChoiceFeedback = calcBestChoice()
-        println(bestChoiceFeedback)
-    }
+    val bestChoiceFeedback = calcBestChoice() //Aufrufen der Funktion, die Empfehlungen ausgibt
+    val badChoiceFeedback = calcBadChoice()     //Aufrufen der Funktion, die vor schlechten Entscheidungen warnt
+    println(bestChoiceFeedback)
+    println(badChoiceFeedback)
+    regretList.add("Empfehlung: $bestChoiceFeedback \nEmpfehlung zum Vermeiden= $badChoiceFeedback")
     readUserInput()
     if(selection!= "Exit") {
-        countRounds++
         evaluateGame()
     }else{
         println("Spiel wird beendet")
@@ -36,11 +30,14 @@ fun newRound(){
 fun printResults(){
     println("=========Ergebnisse========")
     resultList.forEachIndexed(){ index ,value ->                            //Eine Schleife, die für jeden Ergebnis der Liste ausgeführt wird (forEach) //forEachIndexed = Möglichkeit für zwei Werte
-        var nexIndex= index+1
+        val nexIndex= index+1
         println("($nexIndex) $value")
     }
-    println("+Schere: $scissorsBestChoice \n+Stein: $stoneBestChoice \n+Paper: $paperBestChoice\n") //Gewinne
-    println("-Schere: $scissorBadChoice \n-Stein: $stoneBadChoice \n-Paper: $paperBadChoice\n")      //Veloren
+    regretList.forEachIndexed(){ index ,value ->
+        val nexIndex= index+1
+        println("($nexIndex) $value")
+    }
+    println("Schere Regret = $regretScissors \n Stein Regret = $regretStone \n Papier Regret = $regretPaper")
 }
 
 fun computerSelection(){
@@ -88,11 +85,11 @@ fun evaluateGame(){
         if (selection == "Schere"){                     //Aufbau von If und Else Bedingungen bleiben auch gleich wie in Java
             if (selectionEnemy == "Papier"){
                 println("Gewonnen!!!")
-                scissorsBestChoice++
+                regretScissors--
                 resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Gewonnen!!!")
             }else{
                 println("Verloren!!")
-                scissorBadChoice++
+                regretScissors++
                 resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Verloren!!!")
             }
         }
@@ -100,11 +97,11 @@ fun evaluateGame(){
         if (selection == "Papier"){
             if (selectionEnemy == "Schere"){
                 println("Verloren!!!")
-                paperBadChoice++
+                regretPaper++
                 resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Verloren!!!")
             }else{
                 println("Gewonnen")
-                paperBestChoice++
+                regretPaper--
                 resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Gewonnen!!!")
             }
         }
@@ -112,11 +109,11 @@ fun evaluateGame(){
         if (selection == "Stein"){
             if (selectionEnemy == "Schere"){
                 println("Gewonnen!!!")
-                stoneBestChoice++
+                regretStone--
                 resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Gewonnen!!!")
             }else{
                 println("Verloren")
-                stoneBadChoice++
+                regretStone++
                 resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Verloren!!!")
             }
         }
@@ -125,14 +122,20 @@ fun evaluateGame(){
 }
 
 fun calcBestChoice(): String {
-    val scissorsValue:Double = scissorsBestChoice / countRounds
-    val stoneValue:Double = stoneBestChoice / countRounds
-    val paperValue:Double = paperBestChoice / countRounds
     return when {
-        scissorsValue > stoneValue && scissorsValue > paperValue -> "Du solltest Schere nehmen!!"
-        stoneValue > scissorsValue && stoneValue > paperValue -> "Du solltest Stein nehmen!!"
-        paperValue > stoneValue && paperValue > scissorsValue -> "Du solltest Papier nehmen!!"
-        else -> "Keine klare Empfehlung."
+        regretScissors < regretStone && regretScissors < regretPaper -> "Du solltest Schere nehmen!!"
+        regretStone < regretScissors && regretStone < regretPaper -> "Du solltest Stein nehmen!!"
+       regretPaper < regretStone && regretPaper < regretScissors -> "Du solltest Papier nehmen!!"
+        else -> "Keine Wahl ist wirklich gut"
+    }
+}
+
+fun calcBadChoice():String{
+    return when {
+        regretScissors > regretStone && regretScissors > regretPaper -> "Du solltest nicht die Schere nehmen!!"
+        regretStone > regretScissors && regretStone > regretPaper -> "Du solltest nicht den Stein nehmen!!"
+        regretPaper > regretStone && regretPaper > regretScissors -> "Du solltest nicht das Papier nehmen!!"
+        else -> "Keine Wahl ist wirklich Schlecht."
     }
 }
 

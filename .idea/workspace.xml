@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bddf3ec7-a48c-440f-803e-101b149a98eb" name="Changes" comment="Erster Versuch der einer eigenen Implementierung des Regret matchings">
+    <list default="true" id="bddf3ec7-a48c-440f-803e-101b149a98eb" name="Changes" comment="Größere Änderungen an der Auswertungslogik zum RegretMatching. Des weiteren werden die Empfehlungen in einer Liste gespeichert und am Ende des Programmes ausgegeben.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.kt" afterDir="false" />
     </list>
@@ -37,7 +37,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/LukasUsesGitHub/Regret_Matching.git&quot;,
-    &quot;accountId&quot;: &quot;b7ac280b-6380-4756-91e3-d25f32a59e5e&quot;
+    &quot;accountId&quot;: &quot;fbef12af-7211-4197-82ee-f5c1e2f9401d&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -92,6 +92,10 @@
       <workItem from="1714905699967" duration="1165000" />
       <workItem from="1714978739153" duration="288000" />
       <workItem from="1714984852222" duration="1019000" />
+      <workItem from="1715242541086" duration="87000" />
+      <workItem from="1715242637670" duration="3000" />
+      <workItem from="1716016504361" duration="4458000" />
+      <workItem from="1716190490562" duration="3161000" />
     </task>
     <task id="LOCAL-00001" summary="Initial start">
       <option name="closed" value="true" />
@@ -141,6 +145,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial start" />
     <MESSAGE value="Erster Versuch der einer eigenen Implementierung des Regret matchings" />
-    <option name="LAST_COMMIT_MESSAGE" value="Erster Versuch der einer eigenen Implementierung des Regret matchings" />
+    <MESSAGE value="Größere Änderungen an der Auswertungslogik zum RegretMatching. Des weiteren werden die Empfehlungen in einer Liste gespeichert und am Ende des Programmes ausgegeben." />
+    <option name="LAST_COMMIT_MESSAGE" value="Größere Änderungen an der Auswertungslogik zum RegretMatching. Des weiteren werden die Empfehlungen in einer Liste gespeichert und am Ende des Programmes ausgegeben." />
   </component>
 </project>
