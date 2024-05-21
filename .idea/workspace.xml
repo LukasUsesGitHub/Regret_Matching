@@ -95,7 +95,13 @@
       <workItem from="1715242541086" duration="87000" />
       <workItem from="1715242637670" duration="3000" />
       <workItem from="1716016504361" duration="4458000" />
-      <workItem from="1716190490562" duration="3161000" />
+      <workItem from="1716190490562" duration="3716000" />
+      <workItem from="1716194408198" duration="22000" />
+      <workItem from="1716194867821" duration="30000" />
+      <workItem from="1716195555691" duration="145000" />
+      <workItem from="1716273337408" duration="12000" />
+      <workItem from="1716273403316" duration="839000" />
+      <workItem from="1716274806776" duration="45000" />
     </task>
     <task id="LOCAL-00001" summary="Initial start">
       <option name="closed" value="true" />
@@ -113,7 +119,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714642767471</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Größere Änderungen an der Auswertungslogik zum RegretMatching. Des weiteren werden die Empfehlungen in einer Liste gespeichert und am Ende des Programmes ausgegeben.">
+      <option name="closed" value="true" />
+      <created>1716193805553</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1716193805553</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

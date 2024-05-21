@@ -27,6 +27,11 @@ fun newRound(){
     }
 }
 
+fun printRegretValues(){
+    println("Schere Regret = $regretScissors \n Stein Regret = $regretStone \n Papier Regret = $regretPaper")
+    newRound()
+}
+
 fun printResults(){
     println("=========Ergebnisse========")
     resultList.forEachIndexed(){ index ,value ->                            //Eine Schleife, die für jeden Ergebnis der Liste ausgeführt wird (forEach) //forEachIndexed = Möglichkeit für zwei Werte
@@ -60,12 +65,14 @@ fun readUserInput(){
     println("(1)Schere")
     println("(2)Stein")
     println("(3)Papier")
+    println("(8)Regret Werte anzeigen lassen")
     println("(9)Spiel beenden")
     var userSelect= readln()                            //readln().toInt() eine Variable zu einen bestimmten datentyp einlesen
     selection = when(userSelect){                       //"Case" Ähnlicher Vorgang in Kotlin
         "1" -> "Schere"
         "2" -> "Stein"
         "3" -> "Papier"
+        "8" -> "Regrets"
         "9" -> "Exit"
         else -> "Unbekannt"
     }
@@ -76,6 +83,10 @@ fun readUserInput(){
 }
 
 fun evaluateGame(){
+    if(selection=="Regrets"){
+        printRegretValues()
+        return
+    }
     println("Deine Auswahl: $selection")
     println("Auswahl des Gegners: $selectionEnemy")
     if(selection == selectionEnemy){
