@@ -1,3 +1,9 @@
+/*
+* Dieser Code Repräsentiert die Version des Nash-Gleichgewichtes
+* ->Der Computer kann dich nicht Exploiten
+* ->Sie können den Computer nicht Exploiten
+* */
+
 var selection = "Unbekannt"
 var selectionEnemy= "Unbekannt"
 var regretList = mutableListOf<String>()        //Dies wird verwendet um die Regret Vorschläge zu speichern
@@ -46,10 +52,10 @@ fun printResults(){
 }
 
 fun computerSelection(){
-    val computerChoice = (1..3).random()            //Möglichkeit, eine willkürliche Zahl in Kotlin zu bekommen (in diesem Fall ist dies vom Intervall zwische 1 und 3)
+    val computerChoice = (1..3).random()
 
     selectionEnemy = when(computerChoice){
-        1 -> "Schere"                                       //Zahlen bei When nicht in ""
+        1 -> "Schere"
         2 -> "Stein"
         3 -> "Papier"
         else -> "Unbekannt"
@@ -136,7 +142,7 @@ fun calcBestChoice(): String {
     return when {
         regretScissors < regretStone && regretScissors < regretPaper -> "Du solltest Schere nehmen!!"
         regretStone < regretScissors && regretStone < regretPaper -> "Du solltest Stein nehmen!!"
-       regretPaper < regretStone && regretPaper < regretScissors -> "Du solltest Papier nehmen!!"
+        regretPaper < regretStone && regretPaper < regretScissors -> "Du solltest Papier nehmen!!"
         else -> "Keine Wahl ist wirklich gut"
     }
 }

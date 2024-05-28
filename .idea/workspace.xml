@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bddf3ec7-a48c-440f-803e-101b149a98eb" name="Changes" comment="Größere Änderungen an der Auswertungslogik zum RegretMatching. Des weiteren werden die Empfehlungen in einer Liste gespeichert und am Ende des Programmes ausgegeben.">
+    <list default="true" id="bddf3ec7-a48c-440f-803e-101b149a98eb" name="Changes" comment="Kleine Änderung. Man kann die Regret Werte nun in jeder Runde aufrufen">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.kt" afterDir="false" />
     </list>
@@ -67,8 +67,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17011.79" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17011.79" />
       </set>
     </attachedChunks>
   </component>
@@ -102,6 +102,18 @@
       <workItem from="1716273337408" duration="12000" />
       <workItem from="1716273403316" duration="839000" />
       <workItem from="1716274806776" duration="45000" />
+      <workItem from="1716281354304" duration="5328000" />
+      <workItem from="1716288637808" duration="20000" />
+      <workItem from="1716359570034" duration="915000" />
+      <workItem from="1716532598087" duration="575000" />
+      <workItem from="1716719218298" duration="13000" />
+      <workItem from="1716799988440" duration="267000" />
+      <workItem from="1716801375098" duration="5000" />
+      <workItem from="1716809889493" duration="56000" />
+      <workItem from="1716810083321" duration="29000" />
+      <workItem from="1716879266641" duration="222000" />
+      <workItem from="1716910256741" duration="622000" />
+      <workItem from="1716910893027" duration="996000" />
     </task>
     <task id="LOCAL-00001" summary="Initial start">
       <option name="closed" value="true" />
@@ -127,7 +139,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716193805553</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Kleine Änderung. Man kann die Regret Werte nun in jeder Runde aufrufen">
+      <option name="closed" value="true" />
+      <created>1716281806849</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1716281806849</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,6 +180,7 @@
     <MESSAGE value="Initial start" />
     <MESSAGE value="Erster Versuch der einer eigenen Implementierung des Regret matchings" />
     <MESSAGE value="Größere Änderungen an der Auswertungslogik zum RegretMatching. Des weiteren werden die Empfehlungen in einer Liste gespeichert und am Ende des Programmes ausgegeben." />
-    <option name="LAST_COMMIT_MESSAGE" value="Größere Änderungen an der Auswertungslogik zum RegretMatching. Des weiteren werden die Empfehlungen in einer Liste gespeichert und am Ende des Programmes ausgegeben." />
+    <MESSAGE value="Kleine Änderung. Man kann die Regret Werte nun in jeder Runde aufrufen" />
+    <option name="LAST_COMMIT_MESSAGE" value="Kleine Änderung. Man kann die Regret Werte nun in jeder Runde aufrufen" />
   </component>
 </project>
