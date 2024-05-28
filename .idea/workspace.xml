@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bddf3ec7-a48c-440f-803e-101b149a98eb" name="Changes" comment="Kleine Änderung. Man kann die Regret Werte nun in jeder Runde aufrufen">
+    <list default="true" id="bddf3ec7-a48c-440f-803e-101b149a98eb" name="Changes" comment="Branch des Nash Gleichgewicht nun per eindeutige Definition&#10;per Kommentar">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.kt" afterDir="false" />
     </list>
@@ -49,21 +49,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Kotlin.MainKt.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Lukas-Branch&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Kotlin.MainKt.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "Lukas-Branch-Exploitable",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -113,7 +113,7 @@
       <workItem from="1716810083321" duration="29000" />
       <workItem from="1716879266641" duration="222000" />
       <workItem from="1716910256741" duration="622000" />
-      <workItem from="1716910893027" duration="996000" />
+      <workItem from="1716910893027" duration="1696000" />
     </task>
     <task id="LOCAL-00001" summary="Initial start">
       <option name="closed" value="true" />
@@ -147,7 +147,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716281806849</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Branch des Nash Gleichgewicht nun per eindeutige Definition&#10;per Kommentar">
+      <option name="closed" value="true" />
+      <created>1716912280605</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1716912280605</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,6 +189,7 @@
     <MESSAGE value="Erster Versuch der einer eigenen Implementierung des Regret matchings" />
     <MESSAGE value="Größere Änderungen an der Auswertungslogik zum RegretMatching. Des weiteren werden die Empfehlungen in einer Liste gespeichert und am Ende des Programmes ausgegeben." />
     <MESSAGE value="Kleine Änderung. Man kann die Regret Werte nun in jeder Runde aufrufen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Kleine Änderung. Man kann die Regret Werte nun in jeder Runde aufrufen" />
+    <MESSAGE value="Branch des Nash Gleichgewicht nun per eindeutige Definition&#10;per Kommentar" />
+    <option name="LAST_COMMIT_MESSAGE" value="Branch des Nash Gleichgewicht nun per eindeutige Definition&#10;per Kommentar" />
   </component>
 </project>

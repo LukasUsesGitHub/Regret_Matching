@@ -1,8 +1,5 @@
-/*
-* Dieser Code Repräsentiert die Version des Nash-Gleichgewichtes
-* ->Der Computer kann dich nicht Exploiten
-* ->Sie können den Computer nicht Exploiten
-* */
+/*Dies ist die Version wo der Computer exploitable ist
+* ->Der Computer nimmt mehrmals das selbe*/
 
 var selection = "Unbekannt"
 var selectionEnemy= "Unbekannt"
@@ -11,6 +8,9 @@ var resultList = mutableListOf<String>()       //Verfahren um eine Liste anzuleg
 var regretScissors:Int=0
 var regretStone:Int=0
 var regretPaper:Int=0
+var computerChoice = (1..3).random()                     //Bei der Nash Version bitte diese Zeile auskommentieren
+var round:Int=0                                              //......auskommentieren
+var strategyChangeAfterRound:Int =(1..8).random()       //......auskommentieren
 
 fun main(){
     newGame()
@@ -51,15 +51,17 @@ fun printResults(){
     println("Schere Regret = $regretScissors \n Stein Regret = $regretStone \n Papier Regret = $regretPaper")
 }
 
-fun computerSelection(){
-    val computerChoice = (1..3).random()
-
+fun computerSelection(){                            //Exploitable, der Computer lässt sich ausnutzen
+    if(round%strategyChangeAfterRound==0){
+        computerChoice=(1..3).random()
+    }
     selectionEnemy = when(computerChoice){
-        1 -> "Schere"
+        1 -> "Schere"                                       //Zahlen bei When nicht in ""
         2 -> "Stein"
         3 -> "Papier"
         else -> "Unbekannt"
     }
+    round++
 }
 
 fun newGame(){
