@@ -1,5 +1,5 @@
-/*Dies ist die Version wo der Computer exploitable ist
-* ->Der Computer nimmt mehrmals das selbe*/
+/*Dies ist die Version wo der Computer versucht den Spieler zu Exploiten
+* ->Nutzt die Regrets um die Gewinnchance des Spielers zu minimieren*/
 
 var selection = "Unbekannt"
 var selectionEnemy= "Unbekannt"
@@ -8,9 +8,6 @@ var resultList = mutableListOf<String>()       //Verfahren um eine Liste anzuleg
 var regretScissors:Int=0
 var regretStone:Int=0
 var regretPaper:Int=0
-var computerChoice = (1..3).random()                     //Bei der Nash Version bitte diese Zeile auskommentieren
-var round:Int=0                                              //......auskommentieren
-var strategyChangeAfterRound:Int =(1..8).random()       //......auskommentieren
 
 fun main(){
     newGame()
@@ -51,17 +48,13 @@ fun printResults(){
     println("Schere Regret = $regretScissors \n Stein Regret = $regretStone \n Papier Regret = $regretPaper")
 }
 
-fun computerSelection(){                            //Exploitable, der Computer lässt sich ausnutzen
-    if(round%strategyChangeAfterRound==0){
-        computerChoice=(1..3).random()
+fun computerSelection() {
+    selectionEnemy = when {
+        regretScissors > regretStone && regretScissors > regretPaper -> "Papier" // Wählt Papier, da angenommen wird, dass der Spieler Schere nutzt
+        regretStone > regretScissors && regretStone > regretPaper -> "Schere" // Wählt Schere, da angenommen wird, dass der Spieler Stein nutzt
+        regretPaper > regretStone && regretPaper > regretScissors -> "Stein" // Wählt Stein, da angenommen wird, dass der Spieler Papier nutzt
+        else -> listOf("Schere", "Stein", "Papier").random() // Bei Unentschlossenheit, wählt zufällig
     }
-    selectionEnemy = when(computerChoice){
-        1 -> "Schere"                                       //Zahlen bei When nicht in ""
-        2 -> "Stein"
-        3 -> "Papier"
-        else -> "Unbekannt"
-    }
-    round++
 }
 
 fun newGame(){
