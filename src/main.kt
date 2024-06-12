@@ -1,158 +1,82 @@
-/*
-* Dieser Code Repräsentiert die Version des Nash-Gleichgewichtes
-* ->Der Computer kann dich nicht Exploiten
-* ->Sie können den Computer nicht Exploiten
-* */
+import kotlin.random.Random
+import kotlin.math.max
 
-var selection = "Unbekannt"
-var selectionEnemy= "Unbekannt"
-var regretList = mutableListOf<String>()        //Dies wird verwendet um die Regret Vorschläge zu speichern
-var resultList = mutableListOf<String>()       //Verfahren um eine Liste anzulegen (listOf = Eine fertige Liste ; mutableListOf = Eine veränderbare Liste anlegen , und hier muss ein Datentyp rein)
-var regretScissors:Int=0
-var regretStone:Int=0
-var regretPaper:Int=0
-
-fun main(){
-    newGame()
-    newRound()
+enum class Action {
+    ROCK,
+    PAPER,
+    SCISSORS
 }
 
-fun newRound(){
-    computerSelection()
-    val bestChoiceFeedback = calcBestChoice() //Aufrufen der Funktion, die Empfehlungen ausgibt
-    val badChoiceFeedback = calcBadChoice()     //Aufrufen der Funktion, die vor schlechten Entscheidungen warnt
-    println(bestChoiceFeedback)
-    println(badChoiceFeedback)
-    regretList.add("Empfehlung: $bestChoiceFeedback \nEmpfehlung zum Vermeiden= $badChoiceFeedback")
-    readUserInput()
-    if(selection!= "Exit") {
-        evaluateGame()
-    }else{
-        println("Spiel wird beendet")
-        printResults()
+//Gibt 1, 0 oder -1 je nach Win, Draw oder Loss wieder
+fun getPayoff(action1: Action, action2: Action): Int {
+    val mod3Val = (action1.ordinal - action2.ordinal + 3) % 3
+    return if (mod3Val == 1) 1 else if (mod3Val == 2) -1 else 0
+}
+
+
+//Berechnet Strategie basierend auf kumulierten Regrets
+fun getStrategy(cumulativeRegrets: IntArray): DoubleArray {
+    val posCumulativeRegrets = cumulativeRegrets.map { max(0, it) }.toIntArray()
+    val sumOfPosRegrets = posCumulativeRegrets.sum()
+
+    return if (sumOfPosRegrets > 0) {
+        posCumulativeRegrets.map { it.toDouble() / sumOfPosRegrets }.toDoubleArray()
+    } else {
+        DoubleArray(Action.entries.size) { 1.0 / Action.entries.size }
     }
 }
 
-fun printRegretValues(){
-    println("Schere Regret = $regretScissors \n Stein Regret = $regretStone \n Papier Regret = $regretPaper")
-    newRound()
+//Gibt Regretwerte basierend auf Payoff für alle drei Actions wieder
+fun getRegrets(payoff: Int, action2: Action): List<Int> {
+    return Action.entries.map { getPayoff(it, action2) - payoff }
 }
 
-fun printResults(){
-    println("=========Ergebnisse========")
-    resultList.forEachIndexed(){ index ,value ->                            //Eine Schleife, die für jeden Ergebnis der Liste ausgeführt wird (forEach) //forEachIndexed = Möglichkeit für zwei Werte
-        val nexIndex= index+1
-        println("($nexIndex) $value")
-    }
-    regretList.forEachIndexed(){ index ,value ->
-        val nexIndex= index+1
-        println("($nexIndex) $value")
-    }
-    println("Schere Regret = $regretScissors \n Stein Regret = $regretStone \n Papier Regret = $regretPaper")
-}
 
-fun computerSelection(){
-    val computerChoice = (1..3).random()
+fun selectAction(probabilities: DoubleArray): Action {
+    val rand = Random.nextDouble()
+    var cumulativeProbability = 0.0
 
-    selectionEnemy = when(computerChoice){
-        1 -> "Schere"
-        2 -> "Stein"
-        3 -> "Papier"
-        else -> "Unbekannt"
-    }
-}
-
-fun newGame(){
-    println("Schere-Stein-Papier-Game")
-}
-
-fun readUserInput(){
-    println("======================Deine Auswahl====================")
-    println("(1)Schere")
-    println("(2)Stein")
-    println("(3)Papier")
-    println("(8)Regret Werte anzeigen lassen")
-    println("(9)Spiel beenden")
-    var userSelect= readln()                            //readln().toInt() eine Variable zu einen bestimmten datentyp einlesen
-    selection = when(userSelect){                       //"Case" Ähnlicher Vorgang in Kotlin
-        "1" -> "Schere"
-        "2" -> "Stein"
-        "3" -> "Papier"
-        "8" -> "Regrets"
-        "9" -> "Exit"
-        else -> "Unbekannt"
-    }
-    if(selection== "Unbekannt"){
-        println("Falsche Eingabe !!!\n")
-        readUserInput()
-    }
-}
-
-fun evaluateGame(){
-    if(selection=="Regrets"){
-        printRegretValues()
-        return
-    }
-    println("Deine Auswahl: $selection")
-    println("Auswahl des Gegners: $selectionEnemy")
-    if(selection == selectionEnemy){
-        println("Unentschieden")
-        resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Unentschieden!!!")
-    }else{
-        if (selection == "Schere"){                     //Aufbau von If und Else Bedingungen bleiben auch gleich wie in Java
-            if (selectionEnemy == "Papier"){
-                println("Gewonnen!!!")
-                regretScissors--
-                resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Gewonnen!!!")
-            }else{
-                println("Verloren!!")
-                regretScissors++
-                resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Verloren!!!")
-            }
-        }
-
-        if (selection == "Papier"){
-            if (selectionEnemy == "Schere"){
-                println("Verloren!!!")
-                regretPaper++
-                resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Verloren!!!")
-            }else{
-                println("Gewonnen")
-                regretPaper--
-                resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Gewonnen!!!")
-            }
-        }
-
-        if (selection == "Stein"){
-            if (selectionEnemy == "Schere"){
-                println("Gewonnen!!!")
-                regretStone--
-                resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Gewonnen!!!")
-            }else{
-                println("Verloren")
-                regretStone++
-                resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Verloren!!!")
-            }
+    for (i in probabilities.indices) {
+        cumulativeProbability += probabilities[i]
+        if (rand <= cumulativeProbability) {
+            return Action.entries[i]
         }
     }
-    newRound()
+    return Action.entries.last() //falls es zu einem Error kommt, soll er die letzte Action nehmen
 }
 
-fun calcBestChoice(): String {
-    return when {
-        regretScissors < regretStone && regretScissors < regretPaper -> "Du solltest Schere nehmen!!"
-        regretStone < regretScissors && regretStone < regretPaper -> "Du solltest Stein nehmen!!"
-        regretPaper < regretStone && regretPaper < regretScissors -> "Du solltest Papier nehmen!!"
-        else -> "Keine Wahl ist wirklich gut"
+fun main() {
+    val numIterations = 10000
+    val actionCount = Action.entries.size
+
+    var cumulativeRegrets = IntArray(actionCount) { 0 }
+    var strategySum = DoubleArray(actionCount) { 0.0 }
+
+    //Gegner Strategie kann hier geändert werden, die Actions sind → (Stein, Papier, Schere)
+    val opponentStrategy = doubleArrayOf(0.1, 0.6, 0.3)
+
+    for (i in 0..<numIterations) {
+        val strategy = getStrategy(cumulativeRegrets)
+        strategySum = strategySum.zip(strategy).map { it.first + it.second }.toDoubleArray()
+
+        val ourAction = selectAction(strategy)
+        //println("Unsere: $ourAction")
+
+        //Anstelle von strategy, opponentStrategy eingeben für Exploitability
+        val oppAction = selectAction(strategy)
+        //println("Gegner: $oppAction")
+
+        val ourPayoff = getPayoff(ourAction, oppAction)
+
+        val regrets = getRegrets(ourPayoff, oppAction).toIntArray()
+
+        cumulativeRegrets = cumulativeRegrets.zip(regrets).map { it.first + it.second }.toIntArray()
+
+
     }
-}
 
-fun calcBadChoice():String{
-    return when {
-        regretScissors > regretStone && regretScissors > regretPaper -> "Du solltest nicht die Schere nehmen!!"
-        regretStone > regretScissors && regretStone > regretPaper -> "Du solltest nicht den Stein nehmen!!"
-        regretPaper > regretStone && regretPaper > regretScissors -> "Du solltest nicht das Papier nehmen!!"
-        else -> "Keine Wahl ist wirklich Schlecht."
+    for (i in strategySum.indices) {
+        println("Strategy for ${Action.entries[i]}: %.6f".format(strategySum[i] / numIterations))
     }
 }
 
