@@ -1,5 +1,5 @@
-/*Dies ist die Version wo der Computer versucht den Spieler zu Exploiten
-* ->Nutzt die Regrets um die Gewinnchance des Spielers zu minimieren*/
+/*Dies ist die Version wo der Computer exploitable ist
+* ->Der Computer nimmt mehrmals das selbe*/
 
 var selection = "Unbekannt"
 var selectionEnemy= "Unbekannt"
@@ -8,6 +8,9 @@ var resultList = mutableListOf<String>()       //Verfahren um eine Liste anzuleg
 var regretScissors:Int=0
 var regretStone:Int=0
 var regretPaper:Int=0
+var computerChoice = (1..3).random()
+var round:Int=0
+var strategyChangeAfterRound:Int =(1..8).random()
 
 fun main(){
     newGame()
@@ -16,12 +19,14 @@ fun main(){
 
 fun newRound(){
     computerSelection()
-    val bestChoiceFeedback = calcBestChoice() //Aufrufen der Funktion, die Empfehlungen ausgibt
-    val badChoiceFeedback = calcBadChoice()     //Aufrufen der Funktion, die vor schlechten Entscheidungen warnt
-    println(bestChoiceFeedback)
-    println(badChoiceFeedback)
-    regretList.add("Empfehlung: $bestChoiceFeedback \nEmpfehlung zum Vermeiden= $badChoiceFeedback")
-    readUserInput()
+    if(round>=1) {
+        val bestChoiceFeedback = calcBestChoice() //Aufrufen der Funktion, die Empfehlungen ausgibt
+        val badChoiceFeedback = calcBadChoice()     //Aufrufen der Funktion, die vor schlechten Entscheidungen warnt
+        println(bestChoiceFeedback)
+        println(badChoiceFeedback)
+        regretList.add("Empfehlung: $bestChoiceFeedback \nEmpfehlung zum Vermeiden= $badChoiceFeedback")
+        readUserInput()
+    }
     if(selection!= "Exit") {
         evaluateGame()
     }else{
@@ -48,13 +53,19 @@ fun printResults(){
     println("Schere Regret = $regretScissors \n Stein Regret = $regretStone \n Papier Regret = $regretPaper")
 }
 
-fun computerSelection() {
-    selectionEnemy = when {
-        regretScissors > regretStone && regretScissors > regretPaper -> "Papier" // Wählt Papier, da angenommen wird, dass der Spieler Schere nutzt
-        regretStone > regretScissors && regretStone > regretPaper -> "Schere" // Wählt Schere, da angenommen wird, dass der Spieler Stein nutzt
-        regretPaper > regretStone && regretPaper > regretScissors -> "Stein" // Wählt Stein, da angenommen wird, dass der Spieler Papier nutzt
-        else -> listOf("Schere", "Stein", "Papier").random() // Bei Unentschlossenheit, wählt zufällig
+fun computerSelection(){
+    if(round%strategyChangeAfterRound==0){
+        computerChoice=(1..3).random()
+        strategyChangeAfterRound =(1..8).random()
+        round=0
     }
+    selectionEnemy = when(computerChoice){
+        1 -> "Schere"
+        2 -> "Stein"
+        3 -> "Papier"
+        else -> "Unbekannt"
+    }
+    round++
 }
 
 fun newGame(){
