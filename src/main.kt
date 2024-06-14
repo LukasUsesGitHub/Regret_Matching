@@ -1,158 +1,112 @@
-/*
-* Dieser Code Repräsentiert die Version des Nash-Gleichgewichtes
-* ->Der Computer kann dich nicht Exploiten
-* ->Sie können den Computer nicht Exploiten
-* */
-
 var selection = "Unbekannt"
-var selectionEnemy= "Unbekannt"
-var regretList = mutableListOf<String>()        //Dies wird verwendet um die Regret Vorschläge zu speichern
-var resultList = mutableListOf<String>()       //Verfahren um eine Liste anzulegen (listOf = Eine fertige Liste ; mutableListOf = Eine veränderbare Liste anlegen , und hier muss ein Datentyp rein)
-var regretScissors:Int=0
-var regretStone:Int=0
-var regretPaper:Int=0
+var selectionEnemy = "Unbekannt"
+var regretScissors: Double = 0.0
+var regretStone: Double = 0.0
+var regretPaper: Double = 0.0
+var regretScissorsEnemy : Double = 0.0
+var regretStoneEnemy:Double = 0.0
+var regretPaperEnemy:Double = 0.0
+var totalScissors: Double = 0.0
+var totalStone: Double = 0.0
+var totalPaper: Double = 0.0
+var computerChoice = "Unbekannt"
+var roundRegretEval: Int = 0
+var runtime: Int = 0
 
-fun main(){
+
+
+fun main() {
     newGame()
     newRound()
 }
 
-fun newRound(){
-    computerSelection()
-    val bestChoiceFeedback = calcBestChoice() //Aufrufen der Funktion, die Empfehlungen ausgibt
-    val badChoiceFeedback = calcBadChoice()     //Aufrufen der Funktion, die vor schlechten Entscheidungen warnt
-    println(bestChoiceFeedback)
-    println(badChoiceFeedback)
-    regretList.add("Empfehlung: $bestChoiceFeedback \nEmpfehlung zum Vermeiden= $badChoiceFeedback")
-    readUserInput()
-    if(selection!= "Exit") {
+fun newRound() {
+    if (roundRegretEval < runtime) {
+        roundRegretEval++
+        computerSelection()
+        readUserInput()
         evaluateGame()
-    }else{
+        newRound() // Startet die nächste Runde
+    } else {
         println("Spiel wird beendet")
         printResults()
     }
 }
 
-fun printRegretValues(){
-    println("Schere Regret = $regretScissors \n Stein Regret = $regretStone \n Papier Regret = $regretPaper")
-    newRound()
+fun calcRegrets() {
+    totalScissors= regretScissors+regretScissorsEnemy
+    totalStone= regretStone+ regretStoneEnemy
+    totalPaper = regretPaper+regretPaperEnemy
+
+    regretScissors= (totalScissors/roundRegretEval)
+    regretStone= (totalStone/roundRegretEval)
+    regretPaper= (totalPaper/roundRegretEval)
 }
 
-fun printResults(){
-    println("=========Ergebnisse========")
-    resultList.forEachIndexed(){ index ,value ->                            //Eine Schleife, die für jeden Ergebnis der Liste ausgeführt wird (forEach) //forEachIndexed = Möglichkeit für zwei Werte
-        val nexIndex= index+1
-        println("($nexIndex) $value")
-    }
-    regretList.forEachIndexed(){ index ,value ->
-        val nexIndex= index+1
-        println("($nexIndex) $value")
-    }
-    println("Schere Regret = $regretScissors \n Stein Regret = $regretStone \n Papier Regret = $regretPaper")
+fun printResults() {
+    calcRegrets()
+    println("Schere Regret = $regretScissors")
+    println("Stein Regret = $regretStone")
+    println("Papier Regret = $regretPaper")
 }
 
-fun computerSelection(){
-    val computerChoice = (1..3).random()
-
-    selectionEnemy = when(computerChoice){
-        1 -> "Schere"
-        2 -> "Stein"
-        3 -> "Papier"
-        else -> "Unbekannt"
-    }
-}
-
-fun newGame(){
-    println("Schere-Stein-Papier-Game")
-}
-
-fun readUserInput(){
-    println("======================Deine Auswahl====================")
-    println("(1)Schere")
-    println("(2)Stein")
-    println("(3)Papier")
-    println("(8)Regret Werte anzeigen lassen")
-    println("(9)Spiel beenden")
-    var userSelect= readln()                            //readln().toInt() eine Variable zu einen bestimmten datentyp einlesen
-    selection = when(userSelect){                       //"Case" Ähnlicher Vorgang in Kotlin
+fun computerSelection() {
+    computerChoice = (1..3).random().toString()
+    selectionEnemy = when (computerChoice) {
         "1" -> "Schere"
         "2" -> "Stein"
         "3" -> "Papier"
-        "8" -> "Regrets"
-        "9" -> "Exit"
         else -> "Unbekannt"
     }
-    if(selection== "Unbekannt"){
-        println("Falsche Eingabe !!!\n")
-        readUserInput()
+}
+
+fun newGame() {
+    println("Schere-Stein-Papier-Game")
+    print("Geben Sie die Zahl der gewollten Durchläufe ein: ")
+    val a = readln().toInt()
+    runtime = a
+}
+
+fun readUserInput() {
+    val userSelect = (1..3).random().toString()
+    selection = when (userSelect) {
+        "1" -> "Schere"
+        "2" -> "Stein"
+        "3" -> "Papier"
+        else -> "Unbekannt"
     }
 }
 
-fun evaluateGame(){
-    if(selection=="Regrets"){
-        printRegretValues()
+fun evaluateGame() {
+    if (selection == selectionEnemy) {
+        readUserInput()
+        evaluateGame()
         return
     }
-    println("Deine Auswahl: $selection")
-    println("Auswahl des Gegners: $selectionEnemy")
-    if(selection == selectionEnemy){
-        println("Unentschieden")
-        resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Unentschieden!!!")
-    }else{
-        if (selection == "Schere"){                     //Aufbau von If und Else Bedingungen bleiben auch gleich wie in Java
-            if (selectionEnemy == "Papier"){
-                println("Gewonnen!!!")
-                regretScissors--
-                resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Gewonnen!!!")
-            }else{
-                println("Verloren!!")
+
+    when (selection) {
+        "Schere" -> {
+            if (selectionEnemy == "Stein") {
                 regretScissors++
-                resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Verloren!!!")
+            } else if (selectionEnemy == "Papier") {
+                regretScissorsEnemy++
             }
         }
-
-        if (selection == "Papier"){
-            if (selectionEnemy == "Schere"){
-                println("Verloren!!!")
+        "Papier" -> {
+            if (selectionEnemy == "Schere") {
                 regretPaper++
-                resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Verloren!!!")
-            }else{
-                println("Gewonnen")
-                regretPaper--
-                resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Gewonnen!!!")
+            } else if (selectionEnemy == "Stein") {
+                regretPaperEnemy++
             }
         }
-
-        if (selection == "Stein"){
-            if (selectionEnemy == "Schere"){
-                println("Gewonnen!!!")
-                regretStone--
-                resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Gewonnen!!!")
-            }else{
-                println("Verloren")
+        "Stein" -> {
+            if (selectionEnemy == "Papier") {
                 regretStone++
-                resultList.add("[Du] $selection [Gegner] $selectionEnemy -> Verloren!!!")
+            } else if (selectionEnemy == "Schere") {
+                regretStoneEnemy++
             }
         }
     }
-    newRound()
 }
 
-fun calcBestChoice(): String {
-    return when {
-        regretScissors < regretStone && regretScissors < regretPaper -> "Du solltest Schere nehmen!!"
-        regretStone < regretScissors && regretStone < regretPaper -> "Du solltest Stein nehmen!!"
-        regretPaper < regretStone && regretPaper < regretScissors -> "Du solltest Papier nehmen!!"
-        else -> "Keine Wahl ist wirklich gut"
-    }
-}
-
-fun calcBadChoice():String{
-    return when {
-        regretScissors > regretStone && regretScissors > regretPaper -> "Du solltest nicht die Schere nehmen!!"
-        regretStone > regretScissors && regretStone > regretPaper -> "Du solltest nicht den Stein nehmen!!"
-        regretPaper > regretStone && regretPaper > regretScissors -> "Du solltest nicht das Papier nehmen!!"
-        else -> "Keine Wahl ist wirklich Schlecht."
-    }
-}
 
