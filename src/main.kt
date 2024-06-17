@@ -21,17 +21,16 @@ fun main() {
 }
 
 fun newRound() {
-    if (roundRegretEval < runtime) {
+    while(roundRegretEval < runtime) {
         roundRegretEval++
         computerSelection()
         readUserInput()
         evaluateGame()
-        newRound() // Startet die nächste Runde
-    } else {
+    }
         println("Spiel wird beendet")
         printResults()
     }
-}
+
 
 fun calcRegrets() {
     totalScissors= regretScissors+regretScissorsEnemy
